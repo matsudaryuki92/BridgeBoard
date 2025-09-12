@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Faker\Factory as Faker;
 
 class PostSeeder extends Seeder
 {
@@ -21,6 +23,7 @@ class PostSeeder extends Seeder
                 'user_id' => 1,
                 'category_id' => 1,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -28,6 +31,7 @@ class PostSeeder extends Seeder
                 'user_id' => 2,
                 'category_id' => 1,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -35,6 +39,7 @@ class PostSeeder extends Seeder
                 'user_id' => 3,
                 'category_id' => 1,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -42,6 +47,7 @@ class PostSeeder extends Seeder
                 'user_id' => 1,
                 'category_id' => 2,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -49,6 +55,7 @@ class PostSeeder extends Seeder
                 'user_id' => 2,
                 'category_id' => 2,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -56,6 +63,7 @@ class PostSeeder extends Seeder
                 'user_id' => 3,
                 'category_id' => 2,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -63,6 +71,7 @@ class PostSeeder extends Seeder
                 'user_id' => 1,
                 'category_id' => 3,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -70,6 +79,7 @@ class PostSeeder extends Seeder
                 'user_id' => 2,
                 'category_id' => 3,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'title' => 'タイトルが入るよ',
@@ -77,6 +87,7 @@ class PostSeeder extends Seeder
                 'user_id' => 3,
                 'category_id' => 3,
                 'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

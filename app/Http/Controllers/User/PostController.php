@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Http\Controllers\User;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\EditPostRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Profile;
+
+class PostController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth:web');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $posts = Post::with(['user.profile.image', 'category'])
+            ->select('id', 'title', 'contents', 'updated_at', 'user_id', 'category_id')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return view('user.posts.index', compact('posts'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $categories = Category::select('id', 'name')->get();;
+
+        return view('user.posts.create', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StorePostRequest $request, Post $post)
+    {
+        $post->user_id = Auth::id();
+        $post->category_id = $request->input('category_id');
+        $post->title = $request->input('title');
+        $post->contents = $request->input('contents');
+        $post->save();
+
+        return redirect()->route('posts.index')
+                ->with([
+            'message' => '投稿を作成しました！',
+            'status' => 'success',
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+
+        return view('user.posts.edit', compact('post'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(EditPostRequest $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:50',
+            'contents' => 'required|string|max:1000',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->title = $request->input('title');
+        $post->contents = $request->input('contents');
+        $post->save();
+
+        return redirect()->route('posts.index')
+                ->with([
+            'message' => '投稿を更新しました。',
+            'status' => 'info',
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Post::findOrFail($id)->delete();
+
+        return redirect()->route('posts.index')
+            ->with([
+                'message' => '投稿を削除しました！',
+                'status' => 'alert',
+            ]);
+    }
+}

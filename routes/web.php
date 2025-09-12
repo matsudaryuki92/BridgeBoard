@@ -9,6 +9,9 @@ use App\Http\Controllers\User\Auth\NewPasswordController;
 use App\Http\Controllers\User\Auth\PasswordResetLinkController;
 use App\Http\Controllers\User\Auth\RegisteredUserController;
 use App\Http\Controllers\User\Auth\VerifyEmailController;
+use App\Http\Controllers\User\PostController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +28,25 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
+Route::resource('/posts', PostController::class)
+    ->middleware(['auth:web'])
+    ->except('show');
+
+Route::prefix('profile')
+        ->middleware(['auth:web'])
+        ->name('profile.')
+        ->group( function() {
+            Route::get('/', [ProfileController::class, 'index'])->name('index');
+            Route::get('/create', [ProfileController::class, 'create'])->name('create');
+            Route::post('/store', [ProfileController::class, 'store'])->name('store');
+            Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+            Route::put('/update', [ProfileController::class, 'update'])->name('update');
+        });
+
 Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth:web'])->name('dashboard');
+    return view('user.dashboard');})
+    ->middleware(['auth:web'])
+    ->name('dashboard');
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')

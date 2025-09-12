@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Image extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'sort_order',
+        'filename'
     ];
 
-    public function post()
+    public function profile()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Profile::class);
     }
 }
