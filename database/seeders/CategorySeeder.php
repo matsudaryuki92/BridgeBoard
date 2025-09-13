@@ -27,6 +27,14 @@ class CategorySeeder extends Seeder
                 'name' => '日常',
                 'sort_order' => 3,
             ],
+            [
+                'name' => '就活',
+                'sort_order' => 4,
+            ],
+            [
+                'name' => '勉強',
+                'sort_order' => 5,
+            ],
         ]);
     }
 }

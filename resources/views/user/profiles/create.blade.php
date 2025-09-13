@@ -23,7 +23,7 @@
                                 <x-label for="image" :value="__('プロフィール画像')" />
                                 <x-input id="image" class="block mt-1 w-full border-indigo-300 bg-indigo-50"
                                     type="file" name="image" autofocus />
-                                @foreach ($errors->get('name') as $error)
+                                @foreach ($errors->get('image') as $error)
                                 <p class="mt-1 text-red-600 text-sm italic">{{ $error }}</p>
                                 @endforeach
                             </div>
