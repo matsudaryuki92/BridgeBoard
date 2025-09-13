@@ -24,6 +24,7 @@ class StoreProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'image' => 'nullable|file|mimes:jpeg,jpg,png,gif|max:2048',
             'name' => 'required|string|max:20',
             'bio' => 'required|string|max:200',
         ];
@@ -32,6 +33,9 @@ class StoreProfileRequest extends FormRequest
     public function messages()
     {
         return [
+            'image.file' => '画像ファイルを選択してください。',
+            'image.mimes' => '画像は JPEG, PNG, GIF のいずれかでアップロードしてください。',
+            'image.max' => '画像のサイズは2MB以内にしてください。',
             'name.required' => '名前を記入してください',
             'name.string' => '名前は文字列で入力してください',
             'name.max' => '名前は:max文字以内で入力してください。',

@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pagination li {
+    margin: 0 0.5rem;
+    /* ボタン同士の間隔 */
+}

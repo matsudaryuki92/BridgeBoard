@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\StoreProfileRequest;
 use App\Http\Requests\Profile\EditProfileRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Intervention\Image\Laravel\Facades\Image as InterventionImage;
+use Throwable;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Image;
@@ -34,26 +38,35 @@ class ProfileController extends Controller
 
     public function store(StoreProfileRequest $request)
     {
-        $user = Auth::user();
-        $user->name = $request->input('name');
-        $user->save();
+        try {
+            DB::transaction(
+                function () use ($request) {
+                    if ($request->hasFile('image')) {
+                        $path = $request->file('image')->store('profile_images', 'public');
+                        $image = Image::create([
+                            'filename' => $path,
+                        ]);
+                        $image_id = $image->id;
+                    }
 
-        $image_id = null;
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('profile_images', 'public');
-            $image = Image::create(['filename' => $path]);
-            $image_id = $image->id;
+                    Profile::create([
+                        'user_id' => Auth::id(),
+                        'bio' => $request->input('bio'),
+                        'image_id' => $image_id, // ここでセットしておく
+                    ]);
+
+                    $user = Auth::user();
+                    $user->name = $request->input('name');
+                    $user->save();
+                },
+                1
+            );
+        } catch (Throwable $e) {
+            Log::error($e);
+            throw $e;
         }
 
-        Profile::updateOrCreate(
-            ['user_id' => $user->id],
-            [
-                'bio' => $request->input('bio'),
-                'image_id' => $image_id,
-            ]
-        );
-
-        return redirect()->route('posts.index')
+        return redirect()->route('profile.index')
             ->with([
                 'message' => 'プロフィールの設定をしました！',
                 'status' => 'success',
@@ -72,14 +85,29 @@ class ProfileController extends Controller
 
     public function update(EditProfileRequest $request)
     {
-        $profile = Profile::where('user_id', Auth::id())->firstOrFail();
+        try {
+            DB::transaction(function () use ($request) {
+                $profile = Profile::where('user_id', Auth::id())->firstOrFail();
 
-        $user = User::findOrFail(Auth::id());
-        $user->name = $request->input('name');
-        $user->save();
+                if ($request->hasFile('image')) {
+                    $path = $request->file('image')->store('profile_images', 'public');
+                    $image = Image::create([
+                        'filename' => $path,
+                    ]);
+                    $profile->image_id = $image->id;
+                }
 
-        $profile->bio = $request->input('bio');
-        $profile->save();
+                $profile->bio = $request->input('bio');
+                $profile->save();
+
+                $user = User::findOrFail(Auth::id());
+                $user->name = $request->input('name');
+                $user->save();
+            }, 1);
+        } catch (Throwable $e) {
+            Log::error($e);
+            throw $e;
+        }
 
         return redirect()->route('profile.index')
             ->with([

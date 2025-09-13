@@ -24,6 +24,7 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'image' => 'nullable|file|mimes:jpeg,jpg,png',
             'name' => 'required|string|max:20',
             'bio' => 'required|string|max:200',
         ];
@@ -32,6 +33,8 @@ class EditProfileRequest extends FormRequest
     public function messages()
     {
         return [
+            'image.file' => '画像ファイルを選択してください。',
+            'image.mimes' => '画像は JPEG, JPG, PNGのいずれかでアップロードしてください。',
             'name.required' => '名前を記入してください',
             'name.string' => '名前は文字列で入力してください',
             'name.max' => '名前は:max文字以内で入力してください。',

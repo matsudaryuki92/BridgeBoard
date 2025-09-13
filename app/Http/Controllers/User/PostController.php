@@ -28,7 +28,7 @@ class PostController extends Controller
         $posts = Post::with(['user.profile.image', 'category'])
             ->select('id', 'title', 'contents', 'updated_at', 'user_id', 'category_id')
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('user.posts.index', compact('posts'));
     }

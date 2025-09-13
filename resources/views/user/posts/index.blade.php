@@ -5,6 +5,12 @@
         </h2>
     </x-slot>
 
+    <div class="w-full px-4 mt-2 mb-4 flex justify-end">
+        <div class="bg-gray-50 shadow rounded-xl px-6 py-2 text-sm border border-gray-200">
+            {{ $posts->links() }}
+        </div>
+    </div>
+
     <div class="py-12 bg-gray-100">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="space-y-6">
@@ -72,6 +78,11 @@
                     </div>
                 </div>
                 @endforeach
+                <div class="max-w-4xl mx-auto mt-8 px-4">
+                    <div class="bg-gray-50 shadow-md rounded-xl p-4 text-center border border-gray-200">
+                        {{ $posts->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
