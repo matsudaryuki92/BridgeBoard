@@ -13,7 +13,7 @@
 
                 <div class="p-6 relative -mt-12">
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-bold mb-4 text-gray-800">プロフィール編集やで</h3>
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">プロフィール編集</h3>
 
                         <form method="POST" action="{{ route('profile.update') }}">
                             @csrf
