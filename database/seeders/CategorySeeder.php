@@ -17,11 +17,11 @@ class CategorySeeder extends Seeder
     {
         // カテゴリ名と手動でローマ字slugを対応させる方法（簡単で安全）
         $categories = [
-            ['name' => '旅行', 'slug' => 'travel'],
-            ['name' => 'グルメ', 'slug' => 'gourmet'],
-            ['name' => '日常', 'slug' => 'daily'],
-            ['name' => '就活', 'slug' => 'job_hunting'],
-            ['name' => '勉強', 'slug' => 'study'],
+            ['name' => 'Travel', 'slug' => 'travel'],
+            ['name' => 'Gourmet', 'slug' => 'gourmet'],
+            ['name' => 'Daily', 'slug' => 'daily'],
+            ['name' => 'JobHunting', 'slug' => 'job_hunting'],
+            ['name' => 'Study', 'slug' => 'study'],
         ];
 
         foreach ($categories as $index => $category) {
