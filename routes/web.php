@@ -32,11 +32,14 @@ Route::resource('/posts', PostController::class)
     ->middleware(['auth:web'])
     ->except('show');
 
-Route::prefix('category')
+Route::prefix('categories')
     ->middleware(['auth:web'])
-    ->name('category.')
+    ->name('categories.')
     ->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::get('/show/{slug}', [CategoryController::class, 'show'])->name('show');
     });
 
 Route::prefix('profile')

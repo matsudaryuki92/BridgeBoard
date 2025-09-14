@@ -40,16 +40,16 @@
                     @else
                     {{-- Userメニュー --}}
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
-                        {{ __('ダッシュボード') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
-                        {{ __('カテゴリ選択') }}
+                        {{ __('BridgeBoardとは') }}
                     </x-nav-link>
                     <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
-                        {{ __('投稿') }}
+                        {{ __('新規投稿') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
+                        {{ __('カテゴリから探す') }}
                     </x-nav-link>
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
-                        {{ __('掲示板') }}
+                        {{ __('全ての投稿を見る') }}
                     </x-nav-link>
                     @endif
                 </nav>
