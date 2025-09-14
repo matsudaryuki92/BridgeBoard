@@ -21,6 +21,7 @@ class ProfileController extends Controller
         $this->middleware('auth:web');
     }
 
+
     public function index()
     {
         $profile = Profile::with(['user', 'image'])
@@ -31,10 +32,12 @@ class ProfileController extends Controller
         return view('user.profiles.index', compact('profile'));
     }
 
+
     public function create()
     {
         return view('user.profiles.create');
     }
+
 
     public function store(StoreProfileRequest $request)
     {
@@ -72,6 +75,7 @@ class ProfileController extends Controller
                 'status' => 'success',
             ]);
     }
+
 
     public function edit()
     {

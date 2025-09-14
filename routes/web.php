@@ -11,7 +11,7 @@ use App\Http\Controllers\User\Auth\RegisteredUserController;
 use App\Http\Controllers\User\Auth\VerifyEmailController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\ImageController;
+use App\Http\Controllers\User\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,13 @@ Route::get('/', function () {
 Route::resource('/posts', PostController::class)
     ->middleware(['auth:web'])
     ->except('show');
+
+Route::prefix('category')
+    ->middleware(['auth:web'])
+    ->name('category.')
+    ->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+    });
 
 Route::prefix('profile')
         ->middleware(['auth:web'])
