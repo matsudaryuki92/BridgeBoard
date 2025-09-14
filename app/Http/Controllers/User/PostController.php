@@ -18,11 +18,7 @@ class PostController extends Controller
         $this->middleware('auth:web');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $posts = Post::with(['user.profile.image', 'category'])
@@ -33,11 +29,7 @@ class PostController extends Controller
         return view('user.posts.index', compact('posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $categories = Category::select('id', 'name')->get();;
@@ -45,12 +37,7 @@ class PostController extends Controller
         return view('user.posts.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StorePostRequest $request, Post $post)
     {
         $post->user_id = Auth::id();
@@ -66,12 +53,7 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $post = Post::findOrFail($id);
@@ -79,13 +61,7 @@ class PostController extends Controller
         return view('user.posts.edit', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(EditPostRequest $request, $id)
     {
         $request->validate([
@@ -105,12 +81,7 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         Post::findOrFail($id)->delete();

@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="w-full px-4 mt-2 mb-4 flex justify-end">
-        <div class="bg-gray-50 shadow rounded-xl px-6 py-2 text-sm border border-gray-200">
+    <div class="w-full flex justify-end m-0">
+        <div class="bg-gray-50 shadow rounded-xl px-4 py-2 text-sm border border-gray-200">
             {{ $posts->links() }}
         </div>
     </div>

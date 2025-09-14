@@ -23,6 +23,9 @@ class ImageSeeder extends Seeder
                 [
                     'filename' => 'profile_images/Icon2.png',
                 ],
+                [
+                    'filename' => 'profile_images/Icon3.png',
+                ],
             ]
         );
     }
