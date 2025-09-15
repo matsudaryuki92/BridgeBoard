@@ -126,9 +126,15 @@ return [
     |
     */
 
+    // 第1引数がenvフォルダの処理内容、第2引数が予備のための処理
     'cookie' => env(
         'SESSION_COOKIE',
         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+    ),
+
+    'cookie_admin' => env(
+        'SESSION_COOKIE_ADMIN',
+        Str::slug(env('APP_NAME', 'laravel'), '_') . '_session_admin'
     ),
 
     /*
