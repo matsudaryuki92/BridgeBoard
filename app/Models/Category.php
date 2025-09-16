@@ -19,4 +19,9 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function admins()
+    {
+        return $this->belongsToMany(Admin::class, 'admin_deleted_category', 'category_id', 'admin_id');
+    }
 }
