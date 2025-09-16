@@ -27,4 +27,9 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function admins()
+    {
+        return $this->belongsToMany(Admin::class, 'admin_deleted_posts', 'post_id', 'admin_id');
+    }
 }

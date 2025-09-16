@@ -37,6 +37,9 @@
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" class="block py-2 px-4 rounded text-white hover:bg-gray-700">
                         {{ __('ダッシュボード') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')" class="block py-2 px-4 rounded text-white hover:bg-gray-700">
+                        {{ __('ユーザー一覧') }}
+                    </x-nav-link>
                     @else
                     {{-- Userメニュー --}}
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
@@ -97,9 +100,13 @@
 
             {{-- メインコンテンツ --}}
             <main class="bg-gray-100 min-h-screen">
+                @if(request()->routeIs('admin.users.index'))
+                    {{ $slot ?? '' }}
+                @else
                 <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                     {{ $slot ?? '' }}
                 </div>
+                @endif
             </main>
         </div>
     </div>
