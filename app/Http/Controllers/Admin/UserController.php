@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\Category;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -20,5 +21,17 @@ class UserController extends Controller
                     ->paginate(10);
 
         return view('admin.users.index', compact('profiles'));
+    }
+
+    public function destroy($id)
+    {
+        User::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with([
+                'message' => 'ユーザー情報を削除しました。',
+                'status' => 'alert',
+            ]);
     }
 }
