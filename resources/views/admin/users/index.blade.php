@@ -24,13 +24,13 @@
                         <th class="px-6 py-3">氏名</th>
                         <th class="px-6 py-3">メールアドレス</th>
                         <th class="px-6 py-3">作成日</th>
-                        <th class="px-6 py-3">削除日</th>
                         <th class="px-6 py-3">削除</th>
                     </tr>
                 </thead>
-                <tbody>
 
+                <tbody>
                     @foreach($profiles as $profile)
+                    @if(isset($profile->user))
                     <tr class="border-b border-gray-700 hover:bg-gray-700">
                         <td class="px-6 py-4 flex items-center gap-2">
                             <div class="h-8 w-8 bg-gray-500 rounded-full">
@@ -41,14 +41,19 @@
                         <td class="px-6 py-4">{{ $profile->user->name }}</td>
                         <td class="px-6 py-4 font-semibold">{{ $profile->user->email }}</td>
                         <td class="px-6 py-4">{{ $profile->user->created_at->format('Y年m月d日') }}</td>
-                        <td class="px-6 py-4">{{ optional($profile->user->deleted_at)->format('Y年m月d日') }}</td>
                         <td class="px-6 py-4">
-                            <x-button class="bg-red-500 hover:bg-red-700 text-white">
-                                削除
-                            </x-button>
+                            <form action="{{ route('admin.users.destroy', [ 'user' => $profile->user->id ]) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                                @csrf
+                                @method('DELETE')
+                                <x-button class="bg-red-500 hover:bg-red-700 text-white">
+                                    削除
+                                </x-button>
+                            </form>
                         </td>
                     </tr>
+                    @endif
                     @endforeach
+
                 </tbody>
             </table>
         </div>
