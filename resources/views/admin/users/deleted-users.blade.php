@@ -41,7 +41,7 @@
                         <td class="px-6 py-4 font-semibold">{{ $profile->user->email }}</td>
                         <td class="px-6 py-4">{{ $profile->deleted_at->format('Y年m月d日') }}</td>
                         <td class="px-6 py-4">
-                            <form action="" method="POST" onsubmit="return confirm('復元しますか？');">
+                            <form action="{{ route('admin.users.restore', $profile->id) }}" method="POST" onsubmit="return confirm('復元しますか？');">
                                 @csrf
                                 <x-button class="bg-green-600 hover:bg-green-700 text-white">
                                     復元

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,9 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.welcome');
-});
+Route::get('/dashboard', [DashboardController::class, 'getStatistics'])
+    ->middleware(['auth:admin'])
+    ->name('dashboard');
 
 Route::prefix('users')
     ->middleware(['auth:admin'])
@@ -34,11 +35,8 @@ Route::prefix('users')
         Route::delete('/delete/{profile}', [UserController::class, 'destroy'])->name('destroy');
         Route::get('/deleted_users', [UserController::class, 'deletedUsers'])->name('deleted_users');
         Route::post('/force_delete/{profile}', [UserController::class, 'forceDelete'])->name('force_delete');
+        Route::post('/restore/{profile}', [UserController::class, 'restore'])->name('restore');
     });
-
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth:admin'])->name('dashboard');
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
