@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Profile;
-use App\Models\Category;
-use App\Models\User;
 
 class UserController extends Controller
 {
@@ -61,6 +59,18 @@ class UserController extends Controller
             ->with([
                 'message' => 'ユーザー情報を削除しました。',
                 'status' => 'alert',
+            ]);
+    }
+
+    public function restore($id)
+    {
+        Profile::onlyTrashed()->findOrFail($id)->restore();
+
+        return redirect()
+            ->route('admin.users.deleted_users')
+            ->with([
+                'message' => 'ユーザー情報を復元しました。',
+                'status' => 'info',
             ]);
     }
 }
