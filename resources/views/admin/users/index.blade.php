@@ -1,10 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('管理者画面') }}
+            {{ __('ユーザー一覧') }}
         </h2>
     </x-slot>
-
 
     <div class="py-6 px-6 bg-gray-900 min-h-screen text-white">
         <!-- Filters -->
@@ -27,7 +26,6 @@
                         <th class="px-6 py-3">削除</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     @foreach($profiles as $profile)
                     @if(isset($profile->user))
@@ -42,7 +40,7 @@
                         <td class="px-6 py-4 font-semibold">{{ $profile->user->email }}</td>
                         <td class="px-6 py-4">{{ $profile->user->created_at->format('Y年m月d日') }}</td>
                         <td class="px-6 py-4">
-                            <form action="{{ route('admin.users.destroy', [ 'user' => $profile->user->id ]) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                            <form action="{{ route('admin.users.destroy', [ 'profile' => $profile->id ]) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
                                 @method('DELETE')
                                 <x-button class="bg-red-500 hover:bg-red-700 text-white">
@@ -53,10 +51,9 @@
                     </tr>
                     @endif
                     @endforeach
-
                 </tbody>
             </table>
         </div>
     </div>
-
+    <!-- ページネーションの実装 -->
 </x-app-layout>
