@@ -33,6 +33,7 @@ Route::prefix('users')
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::delete('/delete/{profile}', [UserController::class, 'destroy'])->name('destroy');
         Route::get('/deleted_users', [UserController::class, 'deletedUsers'])->name('deleted_users');
+        Route::post('/force_delete/{profile}', [UserController::class, 'forceDelete'])->name('force_delete');
     });
 
 Route::get('/dashboard', function () {

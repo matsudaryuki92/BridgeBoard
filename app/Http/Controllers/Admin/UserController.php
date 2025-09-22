@@ -25,7 +25,9 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        Profile::findOrFail($id)->delete();
+        $profile = Profile::findOrFail($id);
+
+        $profile->delete();
 
         return redirect()
             ->route('admin.users.index')
@@ -42,5 +44,23 @@ class UserController extends Controller
                     ->paginate(10);
 
         return view('admin.users.deleted-users', compact('profiles'));
+    }
+
+    public function forceDelete($id)
+    {
+        $profile = Profile::onlyTrashed()
+                    ->with('user')
+                    ->findOrFail($id);
+
+        $profile->user->forceDelete();
+        $profile->image->forceDelete();
+        $profile->forceDelete();
+
+        return redirect()
+            ->route('admin.users.deleted_users')
+            ->with([
+                'message' => 'ユーザー情報を削除しました。',
+                'status' => 'alert',
+            ]);
     }
 }

@@ -24,6 +24,7 @@
                         <th class="px-6 py-3">メールアドレス</th>
                         <th class="px-6 py-3">削除日</th>
                         <th class="px-6 py-3">復元</th>
+                        <th class="px-6 py-3">完全削除</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +45,14 @@
                                 @csrf
                                 <x-button class="bg-green-600 hover:bg-green-700 text-white">
                                     復元
+                                </x-button>
+                            </form>
+                        </td>
+                        <td class="px-6 py-4">
+                            <form action="{{ route('admin.users.force_delete', $profile->id) }}" method="POST" onsubmit="return confirm('完全削除しますか？');">
+                                @csrf
+                                <x-button class="bg-red-600 hover:bg-red-700 text-white">
+                                    完全削除
                                 </x-button>
                             </form>
                         </td>
