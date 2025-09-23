@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserPostController;
+use App\Http\Controllers\Admin\UserCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,21 @@ Route::prefix('users')
         Route::get('/deleted_users', [UserController::class, 'deletedUsers'])->name('deleted_users');
         Route::post('/force_delete/{profile}', [UserController::class, 'forceDelete'])->name('force_delete');
         Route::post('/restore/{profile}', [UserController::class, 'restore'])->name('restore');
+    });
+
+Route::prefix('posts')
+    ->middleware(['auth:admin'])
+    ->name('posts.')
+    ->group(function () {
+        Route::get('/', [UserPostController::class, 'index'])->name('index');
+    });
+
+Route::prefix('categories')
+    ->middleware(['auth:admin'])
+    ->name('categories.')
+    ->group(function () {
+        Route::get('/', [UserCategoryController::class, 'index'])->name('index');
+        Route::delete('/delete/{category}', [UserCategoryController::class, 'destroy'])->name('destroy');
     });
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
