@@ -43,6 +43,12 @@
                     <x-nav-link :href="route('admin.users.deleted_users')" :active="request()->routeIs('admin.users.deleted_users')" class="block py-2 px-4 rounded text-white hover:bg-gray-700">
                         {{ __('BANユーザー') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.posts.index')" :active="request()->routeIs('admin.posts.index')" class="block py-2 px-4 rounded text-white hover:bg-gray-700">
+                        {{ __('投稿一覧') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')" class="block py-2 px-4 rounded text-white hover:bg-gray-700">
+                        {{ __('カテゴリ一覧') }}
+                    </x-nav-link>
                     @else
                     {{-- Userメニュー --}}
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="block py-2 px-4 rounded text-white hover:bg-indigo-700">
