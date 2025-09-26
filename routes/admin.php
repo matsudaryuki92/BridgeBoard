@@ -38,6 +38,7 @@ Route::prefix('users')
         Route::get('/deleted_users', [UserController::class, 'deletedUsers'])->name('deleted_users');
         Route::post('/force_delete/{profile}', [UserController::class, 'forceDelete'])->name('force_delete');
         Route::post('/restore/{profile}', [UserController::class, 'restore'])->name('restore');
+        Route::get('/search_user', [UserController::class, 'userSearch'])->name('search_user');
     });
 
 Route::prefix('posts')
@@ -45,6 +46,7 @@ Route::prefix('posts')
     ->name('posts.')
     ->group(function () {
         Route::get('/', [UserPostController::class, 'index'])->name('index');
+        Route::delete('/delete/{post}', [UserPostController::class, 'destroy'])->name('destroy');
     });
 
 Route::prefix('categories')

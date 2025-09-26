@@ -56,4 +56,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Admin::class, 'admin_deleted_users', 'user_id', 'admin_id');
     }
+
+    public function scopeUserSearch($query, $searchWord)
+    {
+        if ($searchWord) {
+            return $query->where(function ($query) use ($searchWord) {
+                $query->orWhere('name', 'like', "%{$searchWord}%")
+                    ->orWhere('email', 'like', "%{$searchWord}%");
+            });
+        }
+        return $query;
+    }
 }

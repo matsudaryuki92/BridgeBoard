@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -73,4 +74,25 @@ class UserController extends Controller
                 'status' => 'info',
             ]);
     }
+
+    public function userSearch(Request $request)
+    {
+        $searchWord = $request->input('keyword');
+
+        $query = User::query();
+
+        if ($searchWord) {
+            $query->UserSearch($searchWord);
+        }
+
+        $users = $query->with(['profile.image'])->get();
+
+        $profiles = $users->pluck('profile')->filter();
+
+        return view('admin.users.index', [
+            'profiles' => $profiles,
+            'searchWord' => $request->input('keyword'),
+        ]);
+    }
 }
+
