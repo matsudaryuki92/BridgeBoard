@@ -7,13 +7,15 @@
 
     <div class="py-6 px-6 bg-gray-900 min-h-screen text-white">
         <!-- Filters -->
-        <div class="flex flex-wrap justify-center gap-4 mb-6 items-center">
-            <input type="text" placeholder="名前・メールアドレス"
-                class="bg-gray-800 text-white rounded px-4 py-2 w-1/4 focus:outline-none" />
-            <x-button class="bg-indigo-600 hover:bg-indigo-700 text-white">
-                検索
-            </x-button>
-        </div>
+        <form action="{{ route('admin.users.search_user') }}" method="GET">
+            <div class="flex flex-wrap justify-center gap-4 mb-6 items-center">
+                <input type="text" placeholder="名前・メールアドレス"
+                    class="bg-gray-800 text-white rounded px-4 py-2 w-1/4 focus:outline-none" name="keyword" value="{{ old('keyword', $searchWord) }}" />
+                <x-button class="bg-indigo-600 hover:bg-indigo-700 text-white">
+                    検索
+                </x-button>
+            </div>
+        </form>
 
         <div class="overflow-x-auto bg-gray-800 rounded-lg shadow">
             <table class="w-full text-left text-sm">

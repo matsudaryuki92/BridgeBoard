@@ -54,15 +54,7 @@
                                 </p>
 
                                 <div class="flex space-x-2">
-                                    {{-- 編集ボタン --}}
-                                    <a href="#">
-                                        <x-button class="bg-indigo-600 hover:bg-indigo-700 text-white">
-                                            編集
-                                        </x-button>
-                                    </a>
-
-                                    {{-- 削除ボタン --}}
-                                    <form action="#" method="POST"
+                                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST"
                                         onsubmit="return confirm('本当に削除しますか？');">
                                         @csrf
                                         @method('DELETE')

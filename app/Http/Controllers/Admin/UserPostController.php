@@ -22,4 +22,16 @@ class UserPostController extends Controller
 
         return view('admin.posts.index', compact('posts'));
     }
+
+    public function destroy($id)
+    {
+        Post::findOrFail($id)->delete();
+
+        return redirect()
+            ->route('admin.posts.index')
+            ->with([
+                'message' => '投稿を削除しました。',
+                'status' => 'alert',
+            ]);
+    }
 }

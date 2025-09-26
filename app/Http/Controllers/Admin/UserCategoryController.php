@@ -22,7 +22,7 @@ class UserCategoryController extends Controller
 
     public function destroy($id)
     {
-        Category::with('post')->findOrFail($id)->delete();
+        Category::findOrFail($id)->delete();
 
         return redirect()
             ->route('admin.categories.index')

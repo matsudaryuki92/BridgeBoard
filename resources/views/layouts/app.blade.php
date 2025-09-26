@@ -109,7 +109,7 @@
 
             {{-- メインコンテンツ --}}
             <main class="bg-gray-100 min-h-screen">
-                @if(request()->routeIs('admin.users.index', 'admin.users.deleted_users'))
+                @if(request()->routeIs('admin.users.index', 'admin.users.search_user', 'admin.users.deleted_users'))
                 {{ $slot ?? '' }}
                 @else
                 <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
