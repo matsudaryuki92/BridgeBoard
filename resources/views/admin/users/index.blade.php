@@ -10,7 +10,7 @@
         <form action="{{ route('admin.users.search_user') }}" method="GET">
             <div class="flex flex-wrap justify-center gap-4 mb-6 items-center">
                 <input type="text" placeholder="名前・メールアドレス"
-                    class="bg-gray-800 text-white rounded px-4 py-2 w-1/4 focus:outline-none" name="keyword" value="{{ old('keyword', $searchWord) }}" />
+                    class="bg-gray-800 text-white rounded px-4 py-2 w-1/4 focus:outline-none" name="keyword" value="{{ old('keyword', $searchWord ?? ' ') }}" />
                 <x-button class="bg-indigo-600 hover:bg-indigo-700 text-white">
                     検索
                 </x-button>
