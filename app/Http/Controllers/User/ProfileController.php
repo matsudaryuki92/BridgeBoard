@@ -8,7 +8,6 @@ use App\Http\Requests\Profile\EditProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Intervention\Image\Laravel\Facades\Image as InterventionImage;
 use Throwable;
 use App\Models\Profile;
 use App\Models\User;

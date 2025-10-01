@@ -15,7 +15,7 @@ class UserCategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('id', 'desc')->get();
 
         return view('admin.categories.index', compact('categories'));
     }

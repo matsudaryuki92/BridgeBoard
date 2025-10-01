@@ -64,11 +64,6 @@ class PostController extends Controller
 
     public function update(EditPostRequest $request, $id)
     {
-        $request->validate([
-            'title' => 'required|string|max:50',
-            'contents' => 'required|string|max:1000',
-        ]);
-
         $post = Post::findOrFail($id);
         $post->title = $request->input('title');
         $post->contents = $request->input('contents');
